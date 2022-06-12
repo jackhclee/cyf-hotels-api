@@ -2,6 +2,7 @@
 Example CYF Hotels API
 
 ## Necessary Softwares for macOS
+These tools should allow you change code, run SQL in one place. 
 1. [NodeJS version 16.15.1](https://nodejs.org/en/)
 2. [Nodemon](https://www.npmjs.com/package//nodemon) 
 3. Visual Studio Code
@@ -10,6 +11,7 @@ Example CYF Hotels API
    2. [SQLTools](https://vscode-sqltools.mteixeira.dev)
    3. [SQLTools PostgreSQL/Redshift Driver](https://marketplace.visualstudio.com/items?itemName=mtxr.sqltools-driver-pg)
    4. [SQL Formatter](https://marketplace.visualstudio.com/publishers/adpyke)
+   5. [Thuder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
 5. [PostgreSQL.app](https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.7/Postgres-2.5.7-14.dmg)
 6. [Postman](https://www.postman.com/)
 
@@ -82,7 +84,7 @@ $ npm run dev
 
 ## Suggested Demonstrations
 1. Comparison of database status before and after API call
-2. SQL injection example. See the codes for different GET endpoint for `hotels` in the `server.js` 
+2. SQL injection example. See the codes for different GET endpoint implementations for `hotels` in the `server.js` 
 
 
 

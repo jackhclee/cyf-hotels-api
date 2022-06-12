@@ -46,22 +46,22 @@ const pool = new Pool({
 
 // Proposed SQL injection example
 
-// app.get("/hotels", function (req, res) {
-//   const hotelNameQuery = req.query.name;
-//   console.log(`req.query.name ${hotelNameQuery}`);
-//   // Inject below SQL to delete the bookings table
-//   // ';delete from bookings;select * from hotels where name like '
-//   let query = "SELECT * FROM hotels " + " WHERE name like " + `'%${hotelNameQuery}%'`+ " ORDER BY name";
-//   console.log(`query ${query}`);
+app.get("/hotels", function (req, res) {
+  const hotelNameQuery = req.query.name;
+  console.log(`req.query.name ${hotelNameQuery}`);
+  // Inject below SQL to delete the bookings table
+  // ';delete from bookings;select * from hotels where name like '
+  let query = "SELECT * FROM hotels " + " WHERE name like " + `'%${hotelNameQuery}%'`+ " ORDER BY name";
+  console.log(`query ${query}`);
   
-//   pool
-//     .query(query)
-//     .then((result) => res.json(result.rows))
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).json(error);
-//     });
-// });
+  pool
+    .query(query)
+    .then((result) => res.json(result.rows))
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json(error);
+    });
+});
 
 app.post("/hotels", function (req, res) {
   const newHotelName = req.body.name;

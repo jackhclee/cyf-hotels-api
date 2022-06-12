@@ -10,6 +10,16 @@
             "name": "LocalDB",
             "database": "cyf_hotels",
             "username": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5433,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "LocalPG5433",
+            "database": "cyf_hotels",
+            "username": "postgres"
         }
     ]
 }
