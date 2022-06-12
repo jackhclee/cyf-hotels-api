@@ -7,13 +7,15 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "cyf_hotels",
-  password: "postgrespw",
-  port: 5432,
+  password: "postgrespwa",
+  port: 5433,
 });
+
+// Original example without user provided input
 
 // app.get("/hotels", function (req, res) {
 //   pool
-//     .query("SELECT * FROM hotels")
+//     .query("SELECT * FROM hotels ORDER BY name")
 //     .then((result) => res.json(result.rows))
 //     .catch((error) => {
 //       console.error(error);
@@ -21,26 +23,45 @@ const pool = new Pool({
 //     });
 // });
 
-app.get("/hotels", function (req, res) {
-  const hotelNameQuery = req.query.name;
-  console.log(hotelNameQuery);
-  // let query = `SELECT * FROM hotels ORDER BY name`;
-  let query = "SELECT * FROM hotels " + " WHERE name like " + `'%${hotelNameQuery}%'`+ " ORDER BY name";
-  console.log(query);
-  let params = [];
-  if (hotelNameQuery) {
-      // query = `SELECT * FROM hotels WHERE name LIKE $1 ORDER BY name`;
-      // params.push(`%${hotelNameQuery}%`);
-  }
+// Parameter binding example
+
+// app.get("/hotels", function (req, res) {
+//   const hotelNameQuery = req.query.name;
+//   console.log(`req.query.name ${hotelNameQuery}`);
+//   let params = [];
+//   if (hotelNameQuery) {
+//       query = `SELECT * FROM hotels WHERE name LIKE $1 ORDER BY name`;
+//       console.log(`query ${query}`);
+//       params.push(`%${hotelNameQuery}%`);
+//   }
   
-  pool
-    .query(query, params)
-    .then((result) => res.json(result.rows))
-    .catch((error) => {
-      console.error(error);
-      res.status(500).json(error);
-    });
-});
+//   pool
+//     .query(query, params)
+//     .then((result) => res.json(result.rows))
+//     .catch((error) => {
+//       console.error(error);
+//       res.status(500).json(error);
+//     });
+// });
+
+// Proposed SQL injection example
+
+// app.get("/hotels", function (req, res) {
+//   const hotelNameQuery = req.query.name;
+//   console.log(`req.query.name ${hotelNameQuery}`);
+//   // Inject below SQL to delete the bookings table
+//   // ';delete from bookings;select * from hotels where name like '
+//   let query = "SELECT * FROM hotels " + " WHERE name like " + `'%${hotelNameQuery}%'`+ " ORDER BY name";
+//   console.log(`query ${query}`);
+  
+//   pool
+//     .query(query)
+//     .then((result) => res.json(result.rows))
+//     .catch((error) => {
+//       console.error(error);
+//       res.status(500).json(error);
+//     });
+// });
 
 app.post("/hotels", function (req, res) {
   const newHotelName = req.body.name;
