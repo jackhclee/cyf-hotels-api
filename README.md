@@ -29,7 +29,7 @@ Example CYF Hotels API
    ```
 5. Create database `cyf_hotels` and connect to this db
    ```
-   postgres=#CREATE DATABASE cyf_hotels
+   postgres=#CREATE DATABASE cyf_hotels;
    postgres=# \c cyf_hotels
    You are now connected to database "cyf_hotels" as user "postgres".
    ```
@@ -38,15 +38,15 @@ Example CYF Hotels API
    cyf_hotels=#\i ~/Downloads/cyf_hotels_exercise5.sql
    cyf_hotels=# \d
                 List of relations
-   Schema |       Name       |   Type   |  Owner
+    Schema |       Name       |   Type   |  Owner
    --------+------------------+----------+----------
-   public | bookings         | table    | postgres
-   public | bookings_id_seq  | sequence | postgres
-   public | customers        | table    | postgres
-   public | customers_id_seq | sequence | postgres
-   public | hotels           | table    | postgres
-   public | hotels_id_seq    | sequence | postgres
-   (6 rows)
+    public | bookings         | table    | postgres
+    public | bookings_id_seq  | sequence | postgres
+    public | customers        | table    | postgres
+    public | customers_id_seq | sequence | postgres
+    public | hotels           | table    | postgres
+    public | hotels_id_seq    | sequence | postgres
+    (6 rows)
 
    cyf_hotels=# select count(*) from hotels;
    count
