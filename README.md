@@ -20,11 +20,52 @@ Example CYF Hotels API
     sudo mkdir -p /etc/paths.d &&
     echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
    ```  
-3. PostgreSQL.app trust all local connections by default. However, you can assign a password for a specific user as follows. To assign password for user `tom`:
+3. PostgreSQL.app trust all local connections by default. However, you can assign a password for a specific user as follows. To assign password for user `postgres`:
    ```
-   postgres=#\password tom
-   Enter new password for user "tom": 
+   postgres=#\password postgres
+   Enter new password for user "postgres": 
    Enter it again:
+   ```
+4. Create database `cyf_hotels` and connect to this db
+   ```
+   postgres=#CREATE DATABASE cyf_hotels
+   postgres=# \c cyf_hotels
+   You are now connected to database "cyf_hotels" as user "postgres".
+   ```
+5. Download and rename file [cyf_hotels_exercise5.sql](https://syllabus.codeyourfuture.io/assets/files/cyf_hotels_exercise5-88cc17362572ef85a70785dc2ceb21e9.sql) to `Downloads` folder and load it from psql
+   ```
+   cyf_hotels=#\i ~/Downloads/cyf_hotels_exercise5.sql
+   cyf_hotels=# \d
+                List of relations
+   Schema |       Name       |   Type   |  Owner
+   --------+------------------+----------+----------
+   public | bookings         | table    | postgres
+   public | bookings_id_seq  | sequence | postgres
+   public | customers        | table    | postgres
+   public | customers_id_seq | sequence | postgres
+   public | hotels           | table    | postgres
+   public | hotels_id_seq    | sequence | postgres
+   (6 rows)
+
+   cyf_hotels=# select count(*) from hotels;
+   count
+   -------
+     8
+   (1 row)
+
+   cyf_hotels=# select count(*) from customers;
+   count
+   -------
+    10
+   (1 row)
+
+   cyf_hotels=# select count(*) from bookings;
+    count
+   -------
+    14
+   (1 row)
+
+   cyf_hotels=#
    ```
 ### Program Installation and execution
 In terminal use `npm run dev` to run the server program and listening at port 3000. Change `server.js` to see result immediately.
