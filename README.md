@@ -36,6 +36,9 @@ Example CYF Hotels API
 6. Download and rename file [cyf_hotels_exercise5.sql](https://syllabus.codeyourfuture.io/assets/files/cyf_hotels_exercise5-88cc17362572ef85a70785dc2ceb21e9.sql) to `Downloads` folder and load it from psql
    ```
    cyf_hotels=#\i ~/Downloads/cyf_hotels_exercise5.sql
+   ```
+7. You should have 3 tables and following number of rows as shown in the following output in `cyf_hotels` db
+   ```
    cyf_hotels=# \d
                 List of relations
     Schema |       Name       |   Type   |  Owner
