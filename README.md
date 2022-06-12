@@ -13,7 +13,7 @@ These tools should allow you change code, run SQL in one place.
    4. [SQL Formatter](https://marketplace.visualstudio.com/publishers/adpyke)
    5. [Thuder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
 5. [PostgreSQL.app](https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.7/Postgres-2.5.7-14.dmg)
-6. [Postman](https://www.postman.com/)
+6. [Postman](https://www.postman.com/) (We taught trainee to use Postman before)
 
 ### Database Instllation
 1. Install VS Code and all PostgreSQL related extensions mentioned in above section
