@@ -4,15 +4,7 @@ const { Pool } = require("pg");
 app.use(express.json());
 
 const pool = new Pool({
-  user: "cyf59",
-  // "postgres",
-  host: "database-1.c7jkbbjyxtpj.us-east-1.rds.amazonaws.com",
-  // "localhost",
-  database: "cyf59",
-  // "cyf_hotels",
-  password: "bKVDpsqC",
-  // "postgrespwa",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
 
