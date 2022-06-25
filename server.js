@@ -6,8 +6,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Exercise 1
+// bind Express listening port to env var PORT
+let port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log(`Server is listening on port ${port}. Ready to accept requests!`);
+});
+
 const pool = new Pool({
+  // Exercise 1
+  // Use connectionString and bind to env var DATABASE_URL
   connectionString: process.env.DATABASE_URL,
+
   ssl: { rejectUnauthorized: false }
 });
 
@@ -224,8 +234,4 @@ app.post("/hotels", function (req, res) {
     });
 });
 
-let port = process.env.PORT || 3000;
-app.listen(port, function () {
-  console.log(`Server is listening on port ${port}. Ready to accept requests!`);
-});
 
