@@ -4,12 +4,145 @@ const { Pool } = require("pg");
 app.use(express.json());
 
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "cyf_hotels",
-  password: "postgrespwa",
-  port: 5433,
+  user: "cyf59",
+  // "postgres",
+  host: "database-1.c7jkbbjyxtpj.us-east-1.rds.amazonaws.com",
+  // "localhost",
+  database: "cyf59",
+  // "cyf_hotels",
+  password: "bKVDpsqC",
+  // "postgrespwa",
+  port: 5432,
+  ssl: { rejectUnauthorized: false }
 });
+
+const customersEndpoint = "/customers";
+const defaultAddress  = null;
+const defaultCity     = null;
+const defaultPostcode = null;
+const defaultCountry  = null;
+// *********************************
+
+// Create
+app.post(customersEndpoint, async (req, res) => {
+
+  let newCustomer = {
+    name     : req.body.name,
+    email    : req.body.email,
+    address  : req.body.address  || defaultAddress,
+    city     : req.body.city     || defaultCity,
+    postcode : req.body.postcode || defaultPostcode,
+    country  : req.body.country  || defaultCountry,
+  }
+
+  console.log(newCustomer)
+  
+  try {
+    console.log("trying to insert customer")
+    let result = await pool.query(
+      " INSERT INTO customers (name, email, address, city, postcode, country) " +
+      " VALUES                ($1,   $2,    $3,      $4,   $5,       $6) " +
+      " RETURNING id ",
+      [newCustomer.name, newCustomer.email, newCustomer.address, newCustomer.city, newCustomer.postcode, newCustomer.country]
+    );
+    res.status(200).send({id: result.rows[0].id});
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({err: "Bad input"});
+  }
+})
+
+// Retrieve
+app.get(customersEndpoint, async (req, res) => {
+
+  try {
+    console.log("trying to get customer")
+    let result = await pool.query(
+      " SELECT id, name, email, address, city, postcode, country FROM customers ORDER BY id"
+    );
+    res.status(200).send({recs: result.rows});
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({err: "Bad input"});
+  }
+})
+
+// Update
+app.put(customersEndpoint + "/:id", async (req, res) => {
+
+  console.log(req.body)
+
+  let newCustomer = {
+    name     : req.body.name,
+    email    : req.body.email,
+    address  : req.body.address,
+    city     : req.body.city,
+    postcode : req.body.postcode,
+    country  : req.body.country
+  }
+
+  console.log(newCustomer)
+  
+  let updateSQL = " UPDATE customers SET " + 
+                  " name     = COALESCE($1, name),"     + 
+                  " email    = COALESCE($2, email),"    + 
+                  " address  = COALESCE($3, address),"  + 
+                  " city     = COALESCE($4, city),"     + 
+                  " postcode = COALESCE($5, postcode)," + 
+                  " country  = COALESCE($6, country) "  + 
+                  " WHERE id = $7 " +
+                  " RETURNING id";
+  
+  console.log(updateSQL);
+
+  try {
+    console.log("trying to update customer " + req.params.id)
+    let result = await pool.query(
+      updateSQL,
+      [newCustomer.name, newCustomer.email, newCustomer.address, newCustomer.city, newCustomer.postcode, newCustomer.country, req.params.id]
+    );
+    res.status(200).send({id: result.rows[0].id});
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({err: "Bad input"});
+  }
+})
+
+// Delete
+app.delete(customersEndpoint + "/:id", async (req, res) => {
+  console.log(req.body)
+
+  let newCustomer = {
+    name     : req.body.name,
+    email    : req.body.email,
+    address  : req.body.address,
+    city     : req.body.city,
+    postcode : req.body.postcode,
+    country  : req.body.country
+  }
+
+  console.log(newCustomer)
+  
+  let deleteSQL = " DELETE FROM customers " + 
+                  " WHERE id = $1 " +
+                  " RETURNING id";
+  
+  console.log(deleteSQL);
+
+  try {
+    console.log("trying to delete customer " + req.params.id)
+    let result = await pool.query(
+      deleteSQL,
+      [req.params.id]
+    );
+    res.status(200).send({id: result.rows[0].id});
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({err: "Bad input"});
+  }
+})
+
+// *********************************
 
 // Original example without user provided input
 
