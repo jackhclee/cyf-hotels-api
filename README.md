@@ -79,7 +79,7 @@ In terminal use `npm run dev` to run the server program and listening at port 30
 $ git clone cyf-hotels-api
 $ cd cyf-hotels-api
 $ npm install
-$ npm run dev
+$ npm run start
 ```
 
 ## Suggested Demonstrations
