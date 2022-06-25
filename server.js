@@ -52,6 +52,7 @@ app.get(customersEndpoint, async (req, res) => {
     let result = await pool.query(
       " SELECT id, name, email, address, city, postcode, country FROM customers ORDER BY id"
     );
+    console.log(`${result.rows.length} rows returned`)
     res.status(200).send({recs: result.rows});
   } catch (error) {
     console.log(error);
